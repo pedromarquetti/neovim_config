@@ -1,5 +1,44 @@
 -- [[ Basic Autocommands ]]
 
+local function run_nvm_use_node()
+	vim.notify("running command", vim.log.levels.INFO)
+	local run = vim.fn.system("fnm use --install-if-missing $(fnm list-remote --latest)")
+	vim.notify(string.format("output: %s", run), vim.log.levels.INFO)
+end
+
+-- List of file patterns that should trigger "nvm use node"
+local target_patterns = {
+	"*.js",
+	"*.jsx",
+	"*.ts",
+	"*.tsx",
+	"*.json",
+	"*.yaml",
+	"*.yml",
+	"*.html",
+	"*.htm",
+	"*.css",
+	"*.scss",
+	"*.less",
+	"*.svelte",
+	"*.vue",
+	"*.astro",
+	"*.md",
+	"*.markdown",
+}
+
+-- Nvm use node autocmd
+vim.api.nvim_create_autocmd("BufRead", {
+	desc = "Basic autocmd that runs Nvm use node command on some files",
+	pattern = target_patterns,
+	callback = function()
+		run_nvm_use_node()
+		-- vim.defer_fn(function()
+		-- 	run_nvm_use_node()
+		-- end, 0)
+	end,
+})
+
 -- Highlight when yanking (copying) text
 vim.api.nvim_create_autocmd("TextYankPost", {
 	desc = "Highlight when yanking (copying) text",

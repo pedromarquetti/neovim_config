@@ -1,15 +1,16 @@
 # Welcome to my Neovim configs!
 
 > [!NOTE]
-> This is a rewrite from my [old config](https://github.com/pedromarquetti/kickstart.nvim)
+> This is a rewrite from my
+> [old config](https://github.com/pedromarquetti/kickstart.nvim)
 
-## Installing 
+## Installing
 
-[There's an automated setup script here](https://github.com/pedromarquetti/cfg_files?tab=readme-ov-file#setup-nvim) 
+[There's an automated setup script here](https://github.com/pedromarquetti/cfg_files?tab=readme-ov-file#setup-nvim)
 
-Or run 
+Or run
 
-`git clone https://github.com/pedromarquetti/neovim_config.git "~/.config/nvim/"` 
+`git clone https://github.com/pedromarquetti/neovim_config.git "~/.config/nvim/"`
 
 ## Plugins
 
