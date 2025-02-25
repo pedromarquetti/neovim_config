@@ -34,12 +34,18 @@ local function check_install_formatter(formatter_input, bufnr, cmd)
 			vim.api.nvim_buf_set_keymap(buf, "n", "q", ":close<CR>", { noremap = true, silent = true })
 
 			if handle.err then
-				vim.notify(string.format("Error installing '%s'", formatter_input), vim.log.levels.ERROR)
+				vim.notify(
+					string.format("Error installing '%s', try running %s manually", formatter_input, cmd),
+					vim.log.levels.ERROR
+				)
 			else
 				vim.notify(string.format("Formatter %s installed!", formatter_input), vim.log.levels.INFO)
 			end
 		else
-			vim.notify(string.format("Error running command for formatter %s", formatter_input), vim.log.levels.ERROR)
+			vim.notify(
+				string.format("Error installing '%s', try running %s manually", formatter_input, cmd),
+				vim.log.levels.ERROR
+			)
 		end
 	else
 		return
@@ -110,6 +116,18 @@ return {
 						check_install_formatter("rustfmt", bufnr, "rustup component add rustfmt")
 					end, 0)
 					return { "rustfmt", lsp_format = "fallback" }
+				end,
+				zsh = function()
+					vim.defer_fn(function()
+						check_install_formatter("shellcheck", bufnr, "sudo apt install shellcheck")
+					end, 0)
+					return { "shellcheck" }
+				end,
+				sh = function()
+					vim.defer_fn(function()
+						check_install_formatter("shellcheck", bufnr, "sudo apt install shellcheck")
+					end, 0)
+					return { "shellcheck" }
 				end,
 			},
 		},

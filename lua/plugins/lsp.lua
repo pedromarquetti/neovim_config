@@ -11,6 +11,7 @@ return {
 			},
 		},
 	},
+
 	{ "Bilal2453/luvit-meta", lazy = true },
 
 	{ -- Main LSP Configuration
@@ -27,9 +28,10 @@ return {
 			-- Allows extra capabilities provided by nvim-cmp
 			"hrsh7th/cmp-nvim-lsp",
 		},
+
 		config = function()
 			vim.api.nvim_create_autocmd("LspAttach", {
-				group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
+				group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
 				callback = function(event)
 					local map = function(keys, func, desc, mode)
 						mode = mode or "n"
@@ -81,8 +83,7 @@ return {
 					-- word under your cursor when your cursor rests there for a little while.
 					local client = vim.lsp.get_client_by_id(event.data.client_id)
 					if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
-						local highlight_augroup =
-							vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = false })
+						local highlight_augroup = vim.api.nvim_create_augroup("lsp-highlight", { clear = false })
 						vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
 							buffer = event.buf,
 							group = highlight_augroup,
@@ -96,10 +97,10 @@ return {
 						})
 
 						vim.api.nvim_create_autocmd("LspDetach", {
-							group = vim.api.nvim_create_augroup("kickstart-lsp-detach", { clear = true }),
+							group = vim.api.nvim_create_augroup("lsp-detach", { clear = true }),
 							callback = function(event2)
 								vim.lsp.buf.clear_references()
-								vim.api.nvim_clear_autocmds({ group = "kickstart-lsp-highlight", buffer = event2.buf })
+								vim.api.nvim_clear_autocmds({ group = "lsp-highlight", buffer = event2.buf })
 							end,
 						})
 					end
@@ -155,9 +156,19 @@ return {
 				"stylua", -- Used to format Lua code
 				"clangd",
 			})
+
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
 			require("mason-lspconfig").setup({
+				ensure_installed = {
+					"rust_analyzer",
+					"lua_ls",
+					"bashls",
+					"gopls",
+					"ts_ls",
+					"basedpyright",
+				},
+				automatic_installation = true,
 				handlers = {
 					function(server_name)
 						local server = servers[server_name] or {}
@@ -180,4 +191,3 @@ return {
 		end,
 	},
 }
-
