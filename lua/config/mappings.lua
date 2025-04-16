@@ -14,6 +14,10 @@ vim.keymap.set("n", "<leader>om", "<cmd>:Mason<CR>", {
 	desc = "[O]pen [M]ason",
 })
 
+vim.keymap.set("n", "<leader>on", "<cmd>:enew<CR>", {
+	desc = "[O]pen [N]ew empty buffer",
+})
+
 vim.keymap.set("n", "<leader>ol", "<cmd>:Lazy<CR>", {
 	desc = "[O]pen [L]azy",
 })
