@@ -38,7 +38,7 @@ vim.keymap.set("n", "<leader>p", "<cmd>:bprevious<CR>", {
 	desc = "Go to previous buffer",
 })
 
-vim.keymap.set("n", "<leader>dq", "<cmd>:bd<CR>", {
+vim.keymap.set("n", "<leader>dq", "<cmd>:bd!<CR>", {
 	desc = "[D]ocument [Q]uit",
 })
 
