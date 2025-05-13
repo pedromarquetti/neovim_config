@@ -6,9 +6,12 @@ vim.g.maplocalleader = " "
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
+-- fold settings
 vim.opt.foldmethod = "expr"
-
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldlevel = 99
+
+
 -- Make line numbers default
 vim.opt.number = true
 
