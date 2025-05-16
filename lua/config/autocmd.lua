@@ -1,8 +1,11 @@
 -- [[ Basic Autocommands ]]
 
 local function run_fnm_use()
-	local run = vim.fn.system("fnm use --install-if-missing $(fnm list-remote --latest)")
-	vim.notify(string.format("output: %s", run), vim.log.levels.INFO)
+	if vim.fn.executable("node") == 0 then
+		vim.notify("node is not executable", vim.log.levels.INFO)
+		local run = vim.fn.system("fnm use --install-if-missing $(fnm list-remote --latest)")
+		vim.notify(string.format("output: %s", run), vim.log.levels.INFO)
+	end
 end
 
 -- List of file patterns that should trigger "fnm use ..."
@@ -29,9 +32,12 @@ local target_patterns = {
 -- make sure node is in use with fnm
 -- https://github.com/Schniz/fnm/
 vim.api.nvim_create_autocmd("BufRead", {
-	desc = "Basic autocmd that runs Nvm use node command on some files",
+	desc = "Basic autocmd that runs fnm use node command on some files",
 	pattern = target_patterns,
 	callback = function()
+		if vim.fn.executable("fnm") == 0 then
+			vim.notify("fnm not installed", vim.log.levels.ERROR)
+		end
 		run_fnm_use()
 	end,
 })
@@ -60,4 +66,12 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd("VimEnter", {
 	pattern = "*",
 	command = "clearjumps",
+})
+
+-- < super >f now formats, < super >w only saves the file
+vim.api.nvim_create_autocmd("BufWritePost", {
+	pattern = "*",
+	callback = function()
+		vim.notify("To format files, do <super>f", vim.log.levels.INFO)
+	end,
 })
