@@ -9,6 +9,12 @@ return {
 				no_overlap = false,
 				height = { min = 4, max = 10 },
 			},
+
+			keys = {
+				scroll_down = "<c-j>", -- binding to scroll down inside the popup
+				scroll_up = "<c-k>", -- binding to scroll up inside the popup
+			},
+
 			icons = {
 				-- set icon mappings to true if you have a Nerd Font
 				mappings = vim.g.have_nerd_font,
@@ -60,4 +66,3 @@ return {
 		},
 	},
 }
-

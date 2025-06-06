@@ -68,10 +68,3 @@ vim.api.nvim_create_autocmd("VimEnter", {
 	command = "clearjumps",
 })
 
--- < super >f now formats, < super >w only saves the file
-vim.api.nvim_create_autocmd("BufWritePost", {
-	pattern = "*",
-	callback = function()
-		vim.notify("To format files, do <super>f", vim.log.levels.INFO)
-	end,
-})

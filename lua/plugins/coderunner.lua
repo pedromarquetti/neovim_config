@@ -14,6 +14,10 @@ return {
         },
       },
       mode = 'term',
+      focus = false,
+      term = {
+        size = 2
+      }
     },
   }
 }
